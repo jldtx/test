@@ -1,0 +1,12 @@
+rPA63fOdK8J~#oW
+
+
+git@github.com:jldtx/test.git
+
+
+
+http://p10d6ntfq.bkt.clouddn.com/201712191701051216.mp4
+
+
+
+ffmpeg  -i  /data/test/test.mp4 -c:v libx264 -strict -2 /data/test/test1.mp4
