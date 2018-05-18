@@ -18,17 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Country', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('查看树状结构', ['tree'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'code',
+            //'code',
+            'id',
+            'pid',
             'name',
-            'population',
+            //'population',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

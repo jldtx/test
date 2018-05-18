@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models;
 
 use Yii;
@@ -13,7 +12,9 @@ use Yii;
  */
 class Country extends \yii\db\ActiveRecord
 {
+
     /**
+     *
      * {@inheritdoc}
      */
     public static function tableName()
@@ -22,28 +23,71 @@ class Country extends \yii\db\ActiveRecord
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['code', 'name'], 'required'],
-            [['population'], 'integer'],
-            [['code'], 'string', 'max' => 2],
-            [['name'], 'string', 'max' => 52],
-            [['code'], 'unique'],
+            // [
+            // [
+            // 'code',
+            // 'name'
+            // ],
+            // 'required'
+            // ],
+            // [
+            // [
+            // 'population'
+            // ],
+            // 'integer'
+            // ],
+            // [
+            // [
+            // 'code'
+            // ],
+            // 'string',
+            // 'max' => 2
+            // ],
+            [
+                [
+                    'name'
+                ],
+                'string',
+                'max' => 52
+            ],
+            // [
+            // [
+            // 'code'
+            // ],
+            // 'unique'
+            // ]
+            [
+                [
+                    'pid'
+                ],
+                'integer'
+            ]
         ];
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function attributeLabels()
     {
+        // return [
+        // 'code' => 'Code',
+        // 'name' => 'Name',
+        // 'population' => 'Population',
+        // ];
         return [
+            'pid' => '父级id',
+            'name' => '名称',
             'code' => 'Code',
-            'name' => 'Name',
-            'population' => 'Population',
+            'name' => '名称',
+            'population' => '人口',
         ];
     }
 }
