@@ -161,6 +161,7 @@ class CountryController extends Controller
             'list' => $_city_tree
         ]);
     }
+
     //
     public function actionTreedata()
     {
@@ -175,5 +176,44 @@ class CountryController extends Controller
         $cat = new Category($list);
         $_city_tree = $cat::tree();
         echo json_encode($_city_tree);
+    }
+
+    //
+    public function actionTreeupdate()
+    {
+        $data = Yii::$app->request->post();
+        $countryModel = new Country();
+        $countryModel::updateAll([
+            'name' => $data['name']
+        ], [
+            'id' => $data['id']
+        ]);
+        echo '1';
+    }
+
+    //
+    public function actionTreedelete()
+    {
+        $data = Yii::$app->request->post();
+        $countryModel = new Country();
+        $countryModel::deleteAll([
+            'id' => $data['id']
+        ]);
+        echo '1';
+    }
+
+    //
+    public function actionTreecreate()
+    {
+        $data = Yii::$app->request->post();
+        $countryModel = new Country();
+        $countryModel->pid = $data['pid'];
+        $countryModel->save();
+        $id = $countryModel->attributes['id'];
+        $r = [];
+        $r['status'] = 1;
+        $r['id'] = $id;
+        header('Content-Type:application/json; charset=utf-8');
+        echo json_encode($r);
     }
 }

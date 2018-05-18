@@ -76,55 +76,56 @@ $("#ajax").jstree({
 		}
 	}
 });
-	//节点重命名事件
-    $("#ajax").on("rename_node.jstree", function (e, data) {
-		let upInfo = {};
-		upInfo.id = data.node.id;
-		upInfo.text = data.text;
-		upInfo.old = data.old;
-		$.ajax({
-			url:"http://127.0.0.1/yii2/web/index.php?r=country/treedata",
-			type:"POST",
-			data:upInfo
-		}).then((response)=>{
-			if(response == 1){
-				//alert("重命名成功");
-			}else{
-				alert(response);
-			}
-		})
-    });
-	//节点删除事件
-    $("#ajax").on("delete_node.jstree", function (e, data) {
-		let upInfo = {};
-		upInfo.id = data.node.id;
-		$.ajax({
-			url:"?m=organize&c=index&a=delete_node",
-			type:"POST",
-			data:upInfo
-		}).then((response)=>{
-			if(response == 1){
+//节点重命名事件
+$("#ajax").on("rename_node.jstree", function (e, data) {
+	let upInfo = {};
+	upInfo.id = data.node.id;
+	upInfo.name = data.text;
+	//upInfo.old = data.old;
+	$.ajax({
+		url:"http://127.0.0.1/yii2/web/index.php?r=country/treeupdate",
+		type:"POST",
+		data:upInfo
+	}).then((response)=>{
+		if(response == 1){
+			//alert("重命名成功");
+		}else{
+			alert(response);
+		}
+	})
+});
+//节点删除事件
+$("#ajax").on("delete_node.jstree", function (e, data) {
+	let upInfo = {};
+	upInfo.id = data.node.id;
+	$.ajax({
+		url:"http://127.0.0.1/yii2/web/index.php?r=country/treedelete",
+		type:"POST",
+		data:upInfo
+	}).then((response)=>{
+		if(response == 1){
 
-			}else{
-				console.error(response);
-			}
-		})
-    });
-	//节点添加事件
-    $("#ajax").on("create_node.jstree", function (e, data) {
-		let upInfo = {};
-		upInfo.id = data.node.id;
-		upInfo.pid = data.parent;
-		$.ajax({
-			url:"?m=organize&c=index&a=create_node",
-			type:"POST",
-			data:upInfo
-		}).then((response)=>{
-			if(response.status == 1){
-				var re = jQuery.jstree.reference("#ajax").set_id(data.node,response.id);
-			}else{
-				alert(response);
-			}
-		})
-	});
+		}else{
+			console.error(response);
+		}
+	})
+});
+//节点添加事件
+$("#ajax").on("create_node.jstree", function (e, data) {
+	let upInfo = {};
+	upInfo.id = data.node.id;
+	upInfo.pid = data.parent;
+	$.ajax({
+		url:"?r=country/treecreate",
+		type:"POST",
+		data:upInfo
+	}).then((response)=>{
+        response = JSON.parse(response);
+		if(response.status == 1){
+			var re = jQuery.jstree.reference("#ajax").set_id(data.node,response.id);
+		}else{
+			//alert(response);
+		}
+	})
+});
 ')?>
